@@ -1,0 +1,446 @@
+/* Main Layout - Components and structure */
+
+/* Main terminal container */
+.terminal {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg);
+    gap: var(--space-lg);
+}
+
+/* Header */
+.terminal-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.terminal-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-shadow: var(--glow-md);
+    color: var(--matrix-green);
+}
+
+.header-decoration {
+    color: var(--matrix-green-dim);
+    font-size: 1.5rem;
+}
+
+/* Timer Container */
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+/* Timer Display */
+.timer-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.timer-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg) var(--space-xl);
+    border: 2px solid var(--matrix-green-dim);
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow:
+        inset 0 0 30px rgba(0, 255, 65, 0.05),
+        var(--glow-sm);
+}
+
+.timer-digit {
+    font-size: 5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-shadow: var(--glow-md);
+    min-width: 2.5ch;
+    text-align: center;
+    transition: all 0.1s ease;
+}
+
+.timer-separator {
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--matrix-green-dim);
+    margin: 0 var(--space-xs);
+    animation: cursor-blink 1s ease-in-out infinite;
+}
+
+/* Timer running state */
+.timer-running .timer-frame {
+    border-color: var(--matrix-green);
+    box-shadow:
+        inset 0 0 50px rgba(0, 255, 65, 0.1),
+        var(--glow-lg);
+}
+
+.timer-running .timer-digit {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.timer-running .timer-separator {
+    animation: none;
+    color: var(--matrix-green);
+}
+
+/* Timer paused state */
+.timer-paused .timer-frame {
+    border-color: var(--warning-amber);
+}
+
+.timer-paused .timer-digit {
+    color: var(--warning-amber);
+}
+
+/* Timer warning state (< 5 min) */
+.timer-warning .timer-frame {
+    border-color: var(--danger-red);
+    animation: warning-pulse 1s ease-in-out infinite;
+}
+
+.timer-warning .timer-digit {
+    color: var(--danger-red);
+}
+
+@keyframes warning-pulse {
+    0%, 100% { box-shadow: var(--glow-danger); }
+    50% { box-shadow: 0 0 30px var(--danger-glow); }
+}
+
+/* Timer Status */
+.timer-status {
+    font-size: 0.875rem;
+    letter-spacing: 0.2em;
+    color: var(--matrix-green-dim);
+    text-transform: uppercase;
+}
+
+.timer-running .timer-status {
+    color: var(--matrix-green);
+}
+
+/* Preset Controls */
+.preset-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.preset-btn {
+    min-width: 3.5rem;
+    padding: var(--space-sm);
+    font-size: 0.75rem;
+}
+
+.preset-btn.active {
+    background: var(--matrix-green);
+    color: var(--bg-dark);
+    box-shadow: var(--glow-sm);
+}
+
+.preset-divider {
+    color: var(--matrix-green-dim);
+    margin: 0 var(--space-xs);
+}
+
+.adjust-btn {
+    min-width: 3rem;
+    font-size: 0.75rem;
+}
+
+/* Main Controls */
+.main-controls {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+}
+
+.control-btn {
+    min-width: 10rem;
+    padding: var(--space-md) var(--space-lg);
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+.control-btn.primary {
+    border-width: 2px;
+    border-color: var(--matrix-green);
+}
+
+.control-btn .btn-icon {
+    font-size: 0.875rem;
+}
+
+/* Stats Bar */
+.stats-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background: linear-gradient(to top, var(--bg-darker), transparent);
+    border-top: 1px solid var(--matrix-green-dim);
+    font-size: 0.75rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.stat-item.clickable {
+    cursor: pointer;
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+}
+
+.stat-item.clickable:hover {
+    border-color: var(--matrix-green-dim);
+    background: rgba(0, 255, 65, 0.05);
+}
+
+.stat-label {
+    color: var(--text-dim);
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+}
+
+.stat-value {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.stat-divider {
+    color: var(--matrix-green-dim);
+}
+
+/* History Panel */
+.history-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    max-height: 70vh;
+    background: var(--bg-darker);
+    border: 2px solid var(--matrix-green-dim);
+    box-shadow: var(--glow-md);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--matrix-green-dim);
+}
+
+.panel-header h2 {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+}
+
+.close-btn {
+    font-size: 1.5rem;
+    padding: 0 var(--space-sm);
+    border: none;
+    min-width: auto;
+}
+
+.history-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-md);
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+    font-size: 0.875rem;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-date {
+    color: var(--text-dim);
+}
+
+.history-duration {
+    font-weight: 600;
+}
+
+.history-status {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border: 1px solid currentColor;
+}
+
+.history-status.completed {
+    color: var(--matrix-green);
+}
+
+.history-status.aborted {
+    color: var(--danger-red);
+}
+
+.history-empty {
+    text-align: center;
+    color: var(--text-dim);
+    padding: var(--space-xl);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+.modal-content {
+    background: var(--bg-darker);
+    border: 2px solid var(--matrix-green-dim);
+    padding: var(--space-xl);
+    text-align: center;
+    max-width: 400px;
+    box-shadow: var(--glow-lg);
+}
+
+.modal-content.danger {
+    border-color: var(--danger-red);
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-md);
+    letter-spacing: 0.1em;
+}
+
+.modal-message {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+}
+
+.break-options,
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.control-btn.skip {
+    border-color: var(--text-dim);
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    margin-top: var(--space-sm);
+}
+
+.control-btn.skip:hover {
+    background: var(--text-dim);
+    color: var(--bg-dark);
+}
+
+/* Shortcuts Hint */
+.shortcuts-hint {
+    position: fixed;
+    top: var(--space-md);
+    right: var(--space-md);
+    display: flex;
+    gap: var(--space-md);
+    font-size: 0.625rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+}
+
+.shortcuts-hint span {
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--matrix-green-dim);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .timer-digit {
+        font-size: 3rem;
+    }
+
+    .timer-separator {
+        font-size: 3rem;
+    }
+
+    .terminal-header h1 {
+        font-size: 1.25rem;
+    }
+
+    .preset-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .stats-bar {
+        flex-wrap: wrap;
+        gap: var(--space-sm);
+    }
+
+    .shortcuts-hint {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .timer-digit {
+        font-size: 2.5rem;
+    }
+
+    .timer-separator {
+        font-size: 2.5rem;
+    }
+
+    .main-controls {
+        flex-direction: column;
+    }
+
+    .control-btn {
+        min-width: 100%;
+    }
+}

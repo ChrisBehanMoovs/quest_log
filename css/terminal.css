@@ -1,0 +1,212 @@
+/* Terminal Aesthetic - Base styles, colors, fonts */
+
+:root {
+    /* Matrix color palette */
+    --bg-dark: #0a0a0a;
+    --bg-darker: #050505;
+    --matrix-green: #00ff41;
+    --matrix-green-dim: #008f11;
+    --matrix-green-bright: #00ff00;
+    --matrix-green-glow: rgba(0, 255, 65, 0.5);
+    --text-primary: #00ff41;
+    --text-secondary: #008f11;
+    --text-dim: #004d00;
+    --danger-red: #ff0040;
+    --danger-glow: rgba(255, 0, 64, 0.5);
+    --warning-amber: #ffaa00;
+
+    /* Typography */
+    --font-mono: 'Fira Code', 'Consolas', 'Monaco', monospace;
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 2rem;
+    --space-xl: 4rem;
+
+    /* Effects */
+    --glow-sm: 0 0 5px var(--matrix-green-glow);
+    --glow-md: 0 0 10px var(--matrix-green-glow), 0 0 20px var(--matrix-green-glow);
+    --glow-lg: 0 0 10px var(--matrix-green-glow), 0 0 20px var(--matrix-green-glow), 0 0 40px var(--matrix-green-glow);
+    --glow-danger: 0 0 10px var(--danger-glow), 0 0 20px var(--danger-glow);
+}
+
+/* Reset and base */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-mono);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Selection styling */
+::selection {
+    background: var(--matrix-green);
+    color: var(--bg-dark);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-darker);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--matrix-green-dim);
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--matrix-green);
+}
+
+/* Phosphor text glow effect */
+.glow {
+    text-shadow: var(--glow-sm);
+}
+
+.glow-strong {
+    text-shadow: var(--glow-md);
+}
+
+.glow-intense {
+    text-shadow: var(--glow-lg);
+}
+
+/* Terminal cursor blink */
+@keyframes cursor-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.cursor::after {
+    content: '█';
+    animation: cursor-blink 1s infinite;
+    margin-left: 2px;
+}
+
+/* Text flicker effect */
+@keyframes text-flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow: var(--glow-sm);
+    }
+    20%, 24%, 55% {
+        opacity: 0.8;
+        text-shadow: none;
+    }
+}
+
+.flicker {
+    animation: text-flicker 3s linear infinite;
+}
+
+/* Pulsing glow for active elements */
+@keyframes pulse-glow {
+    0%, 100% {
+        text-shadow: var(--glow-sm);
+        filter: brightness(1);
+    }
+    50% {
+        text-shadow: var(--glow-lg);
+        filter: brightness(1.2);
+    }
+}
+
+.pulse {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Button base styles */
+button {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    background: transparent;
+    border: 1px solid var(--matrix-green-dim);
+    color: var(--text-primary);
+    padding: var(--space-sm) var(--space-md);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+button:hover {
+    background: var(--matrix-green);
+    color: var(--bg-dark);
+    box-shadow: var(--glow-md);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: var(--glow-sm);
+}
+
+button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+button:disabled:hover {
+    background: transparent;
+    color: var(--text-primary);
+    box-shadow: none;
+}
+
+/* Danger button variant */
+button.danger {
+    border-color: var(--danger-red);
+    color: var(--danger-red);
+}
+
+button.danger:hover {
+    background: var(--danger-red);
+    color: var(--bg-dark);
+    box-shadow: var(--glow-danger);
+}
+
+/* Link styles */
+a {
+    color: var(--matrix-green);
+    text-decoration: none;
+    border-bottom: 1px solid var(--matrix-green-dim);
+    transition: all 0.15s ease;
+}
+
+a:hover {
+    text-shadow: var(--glow-sm);
+    border-color: var(--matrix-green);
+}
+
+/* Hidden utility */
+.hidden {
+    display: none !important;
+}
+
+/* Visible utility */
+.visible {
+    display: block !important;
+}
