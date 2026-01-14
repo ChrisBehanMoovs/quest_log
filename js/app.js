@@ -341,9 +341,6 @@
      * Handle timer warnings
      */
     function handleWarning(secondsRemaining) {
-        const intensity = secondsRemaining <= 60 ? 2 : 1;
-        Sounds.playWarning(intensity);
-
         elements.timerContainer.classList.add('timer-warning');
         Glitch.rgbSplit(elements.timerDigits.minutes, 200);
     }
